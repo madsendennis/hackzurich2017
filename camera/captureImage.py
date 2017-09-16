@@ -24,7 +24,7 @@ def captureImage():
 
     # return base64 representation of image
     #return str
-
+    
     return send_file('cameraImages/Image.jpg', mimetype='image/jpeg')
 
 if __name__ == "__main__":
