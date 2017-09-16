@@ -14,7 +14,7 @@ def receiveImage():
 
     # Convert to jpeg image
     fh = open("receivedImage.jpg", "wb")
-    fh.write(imageString.decode('base64'))
+    fh.write(base64.b64decode(imageString))
     fh.close()
 
     # Call the contamination detection logic here
