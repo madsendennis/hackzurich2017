@@ -71,3 +71,6 @@ def getGrainImage():
 
 def grainimage():
     return dict(message=T('Image of grains have been captured!'))
+
+def contaminationreport():
+    return dict(message=T('Contamination details in the food grains are as below:'))
