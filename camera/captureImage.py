@@ -1,5 +1,6 @@
 import picamera
 import base64
+import time
 from flask import Flask
 
 app = Flask(__name__)
@@ -9,7 +10,8 @@ def captureImage():
     # capture image from camera
     camera = picamera.PiCamera()
     camera.capture('cameraImages/Image.jpg')
-
+    time.sleep(2)
+    
     # convert image to base64 string
     with open('cameraImages/Image.png', 'rb') as imageFile:
         str = base64.b64encode(imageFile.read())
