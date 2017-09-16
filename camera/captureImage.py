@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route("/captureImage")
 def captureImage():
     # capture image from camera
-    camera = picamera.PiCamera()
     camera.start_preview()
     time.sleep(2)
     camera.capture('cameraImages/Image.jpg')
@@ -23,3 +22,4 @@ def captureImage():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
+    camera = picamera.PiCamera()
