@@ -9,6 +9,7 @@ app = Flask(__name__)
 def captureImage():
     # capture image from camera
     camera = picamera.PiCamera()
+    camera.start_preview()
     camera.capture('cameraImages/Image.jpg')
     time.sleep(2)
 
