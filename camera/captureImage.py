@@ -2,12 +2,14 @@ import picamera
 import base64
 import time
 from flask import Flask
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 camera = picamera.PiCamera()
 
 @app.route("/captureImage")
-@cross_origin(origins='*', send_wildcard=True)
+@cross_origin(supports_credentials=True)
 def captureImage():
     # capture image from camera
     camera.start_preview()
