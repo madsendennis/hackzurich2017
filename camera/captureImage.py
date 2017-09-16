@@ -9,7 +9,7 @@ import os.path
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 camera = picamera.PiCamera()
-camera.resolution = (800, 600)
+camera.resolution = (600, 480)
 
 @app.route("/captureImage")
 @cross_origin(supports_credentials=True)
