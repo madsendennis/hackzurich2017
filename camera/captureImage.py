@@ -7,6 +7,7 @@ app = Flask(__name__)
 camera = picamera.PiCamera()
 
 @app.route("/captureImage")
+@cross_origin(origins='*', send_wildcard=True)
 def captureImage():
     # capture image from camera
     camera.start_preview()
@@ -19,7 +20,7 @@ def captureImage():
         str = base64.b64encode(imageFile.read())
 
     # return base64 representation of image
-    return "done"
+    return str
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
