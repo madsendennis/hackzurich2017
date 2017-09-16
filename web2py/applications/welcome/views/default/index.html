@@ -1,19 +1,7 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-{{block header}}
-    <header class="container-fluid background">
-      <div class="jumbotron text-center">
-      </div>
-    </header>
-{{end}}
-
+<div style="text-align: center;">
 <form action="getGrainImage">
   <button type="submit" class="btn btn-primary">Get image of grains for analysis</button>
 </form>
-
-{{block image}}
-{{end}}
-
-{{block right_sidebar}}
-{{end}}
+</div>

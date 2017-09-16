@@ -18,8 +18,7 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    return dict(message=T('Welcome to Safe Grain, Safe Food!'))
 
 
 def user():
@@ -73,4 +72,8 @@ def grainimage():
     return dict(message=T('Image of grains have been captured!'))
 
 def contaminationreport():
+    # call service to start contamination detection
     return dict(message=T('Contamination details in the food grains are as below:'))
+
+def viewanalysisimages():
+    return dict(message=T(''))

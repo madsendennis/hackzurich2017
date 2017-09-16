@@ -1,4 +1,23 @@
 {{extend 'layout.html'}}
 <div style='text-align: center;'>
 <h3>{{=message}}</h3>
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Contamination Property</th>
+      <th>Contamination Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>something</td>
+      <td>something</td>
+    </tr>
+  </tbody>
+</table>
+<form action="viewanalysisimages" style="margin-top: 10px; margin-bottom: 10px;">
+  <button type="submit" class="btn btn-primary">View contamination analysis images</button>
+</form>
 </div>

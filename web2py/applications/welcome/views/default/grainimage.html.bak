@@ -2,7 +2,8 @@
 <div style='text-align: center;'>
 <h3>{{=message}}</h3>
 <img src="{{=URL('static','images/GrainImage.jpg')}}" class="img-responsive" alt="Grain Image" style="display: inline-block;">
-<form action="contaminationreport">
+<br/>
+<form action="contaminationreport" style="margin-top: 10px; margin-bottom: 10px;">
   <button type="submit" class="btn btn-primary">Get contamination report using the above image.</button>
 </form>
 </div>
