@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var getCameraImageUrl = "http://172.30.0.63:5000/captureImage";
+    var getCameraImageUrl = "http://172.31.1.17:5000/captureImage";
     var sendImageToMagicBoxUrl = "http://localhost:5000/receiveImage";
-    var imageBase64String = "";
+    var imageBase64String;
 
     $("#takeImage").show();
     $("#contaminationReport").hide();
@@ -9,12 +9,14 @@ $(document).ready(function () {
 
     // Get Grain Image content
     $("#getGrainImage").click(function () {
-        alert("Getting Image!");
+
         $.ajax({
             url: getCameraImageUrl,
+            type: "GET",
+            dataType:"image/jpeg",
             success: function (data) {
+                alert("response");
                 // Send grain image content to Magic Box
-                imageBase64String = data;
                 $("#getContaminationReport").show();
             },
             error: function () {
