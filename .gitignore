@@ -103,4 +103,3 @@ ENV/
 # images
 images/*
 raw/*
-cameraImages/*
