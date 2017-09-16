@@ -2,7 +2,7 @@ import picamera
 
 # Capture Image to file 
 def captureImage():
-	camera = picamera.PiCamera()
+    camera = picamera.PiCamera()
     camera.capture('cameraImages/Image.jpg')
 
 if __name__ == "__main__":
