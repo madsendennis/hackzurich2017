@@ -64,7 +64,7 @@ def getGrainImage():
     with urllib.request.urlopen("http://172.31.1.17:5000/captureImage") as url:
         data = url.read()
     # Creating copy on server
-    imagefile = open('applications/welcome/static/images/GrainImage.jpg','wb')
+    imagefile = open('applications/welcome/images/GrainImage.jpg','wb')
     imagefile.write(data)
     imagefile.close()
     return redirect(URL('grainimage'))
