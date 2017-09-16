@@ -9,7 +9,7 @@ from datetime import datetime
 
 print("Stuff")
 
-imgRaw = cv2.imread('dorde/contaminated2.jpg', cv2.IMREAD_COLOR) #IMREAD_GRAYSCALE IMREAD_UNCHANGED IMREAD_COLOR
+imgRaw = cv2.imread('dorde/black_contaminated_1.jpg', cv2.IMREAD_COLOR) #IMREAD_GRAYSCALE IMREAD_UNCHANGED IMREAD_COLOR
 imgRawOrig = imgRaw.copy()
 img_b,img_g,img_r = cv2.split(imgRaw)
 img_gray = cv2.cvtColor(imgRaw, cv2.COLOR_BGR2GRAY)
@@ -51,8 +51,8 @@ labels[unknown==255] = 0
 labels = cv2.watershed(imgRaw, labels)
 imgRaw[labels == -1] = [255,0,0]
 
-plt.subplot(3,3,8),plt.imshow(labels)
-plt.subplot(3,3,9),plt.imshow(imgRaw)
+plt.subplot(3,3,3),plt.imshow(labels)
+plt.subplot(3,3,6),plt.imshow(imgRaw)
 
 
 print("Number of markers: ", num_labels)
@@ -74,8 +74,6 @@ for i in range(1, num_labels):
             x,y,w,h = cv2.boundingRect(cont)
             cv2.imwrite(newpath + '/' + str(i) +'.png', imgRawOrig[y:y+h,x:x+w])
 
-        plt.subplot(3,3,7), plt.imshow(newLabel, 'gray')
-
 
 numNotBG = np.count_nonzero(bw.flatten())
 print("Not Background: ", numNotBG)
@@ -85,5 +83,32 @@ numOK = np.count_nonzero(labelCp.flatten())
 print("Good stuff: ", numOK)
 percOk = (numOK/numNotBG)*100.0
 print("OK: ", percOk)
+
+
+
+fred = np.fft.fft2(img_r)
+fshiftred = np.fft.fftshift(fred)
+magnitude_spectrum_red = 20*np.log(np.abs(fshiftred))
+plt.subplot(3,3,7),plt.imshow(magnitude_spectrum_red, 'gray')
+
+
+# Overlay image
+total = bw
+good = labels.copy()
+
+alpha = 0.5
+overlay = imgRawOrig.copy()
+output = imgRawOrig.copy()
+
+output[total > 0] = (255, 0, 0)
+output[labels > 1] = (0, 255, 0)
+
+cv2.addWeighted(overlay, alpha, output, 1 - alpha, 	0, output)
+
+
+plt.subplot(3,3,8),plt.imshow(output)
+
+
 plt.show()
 
+cv2.imshow('precision', output)
