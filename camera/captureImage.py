@@ -6,7 +6,16 @@ app = Flask(__name__)
 
 @app.route("/captureImage")
 def captureImage():
+    # capture image from camera
+    camera = picamera.PiCamera()
+    camera.capture('cameraImages/Image.jpg')
+
+    # convert image to base64 string
+    with open('cameraImages/Image.png', 'rb') as imageFile:
+        str = base64.b64encode(imageFile.read())
+
+    # return base64 representation of image
     return "done"
 
 if __name__ == "__main__":
-    app.run(host='', port=5000)
+    app.run(host='0.0.0.0', port=5000)
