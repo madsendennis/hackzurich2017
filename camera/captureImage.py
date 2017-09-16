@@ -11,9 +11,9 @@ def captureImage():
     camera = picamera.PiCamera()
     camera.capture('cameraImages/Image.jpg')
     time.sleep(2)
-    
+
     # convert image to base64 string
-    with open('cameraImages/Image.png', 'rb') as imageFile:
+    with open('cameraImages/Image.jpg', 'rb') as imageFile:
         str = base64.b64encode(imageFile.read())
 
     # return base64 representation of image
