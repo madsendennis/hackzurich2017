@@ -10,8 +10,9 @@ def captureImage():
     # capture image from camera
     camera = picamera.PiCamera()
     camera.start_preview()
-    camera.capture('cameraImages/Image.jpg')
     time.sleep(2)
+    camera.capture('cameraImages/Image.jpg')
+    camera.stop_preview()
 
     # convert image to base64 string
     with open('cameraImages/Image.jpg', 'rb') as imageFile:
