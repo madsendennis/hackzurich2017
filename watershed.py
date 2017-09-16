@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 #imgRaw = cv2.imread('images/water_coins.jpg', cv2.IMREAD_COLOR)
-imgRaw = cv2.imread('raw/normal3.jpg', cv2.IMREAD_COLOR)
+imgRaw = cv2.imread('raw/normal3_crop.jpg', cv2.IMREAD_COLOR)
 b,g,r = cv2.split(imgRaw)
 gray = cv2.cvtColor(imgRaw, cv2.COLOR_BGR2GRAY)
 
@@ -24,7 +24,7 @@ plt.subplot(122),plt.imshow(thresh, cmap = 'gray')
 plt.show()
 
 # noise removal
-kernel = np.ones((5,5),np.uint8)
+kernel = np.ones((10,10),np.uint8)
 opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 2)
 # sure background area
 sure_bg = cv2.dilate(opening,kernel,iterations=3)
@@ -37,7 +37,6 @@ unknown = cv2.subtract(sure_bg,sure_fg)
 plt.subplot(121),plt.imshow(sure_bg, cmap = 'gray')
 plt.subplot(122),plt.imshow(sure_fg, cmap = 'gray')
 plt.show()
-
 
 # Marker labelling
 ret, markers = cv2.connectedComponents(sure_fg)
