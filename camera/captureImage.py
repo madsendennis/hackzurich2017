@@ -10,7 +10,7 @@ camera = picamera.PiCamera()
 def captureImage():
     # capture image from camera
     camera.start_preview()
-    sleep(2)
+    time.sleep(2)
     camera.capture('cameraImages/Image.jpg')
     camera.stop_preview()
 
