@@ -10031,10 +10031,13 @@ class Check:
         h, w = image.shape
         if (h != 100 and w != 100):
             print("Unsupported size: h=" + str(h) + " and w=" + str(w))
-            return -1,-1
+            return None
 
         for i in range(0, 10000):
-            self.data["Inputs"]["input_conture"][0]["c" + str(i)] = img[i]
+            try:
+                self.data["Inputs"]["input_conture"][0]["c" + str(i)] = img[i]
+            except:
+                return None
 
         self.scored_label = ""
         self.scored_probability = ""
