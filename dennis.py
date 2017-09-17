@@ -6,10 +6,17 @@ import numpy as np
 from matplotlib import pyplot as plt
 import os
 from datetime import datetime
+import random 
+
+def isThisOkay(img):
+    return bool(random.getrandbits(1))
+    
+    
+
 
 print("Stuff")
 
-imgRaw = cv2.imread('dorde/contaminated2.jpg', cv2.IMREAD_COLOR) #IMREAD_GRAYSCALE IMREAD_UNCHANGED IMREAD_COLOR
+imgRaw = cv2.imread('dorde/black_okay_1.jpg', cv2.IMREAD_COLOR) #IMREAD_GRAYSCALE IMREAD_UNCHANGED IMREAD_COLOR
 imgRawOrig = imgRaw.copy()
 img_b,img_g,img_r = cv2.split(imgRaw)
 img_gray = cv2.cvtColor(imgRaw, cv2.COLOR_BGR2GRAY)
@@ -32,7 +39,7 @@ opening = cv2.morphologyEx(bw, cv2.MORPH_OPEN,kernel, iterations = 2)
 sure_bg = cv2.dilate(opening,kernel,iterations=3)
 # Finding sure foreground area
 dist_transform = cv2.distanceTransform(opening,cv2.DIST_L2,5)
-ret, sure_fg = cv2.threshold(dist_transform,0.5*dist_transform.max(),255,0)
+ret, sure_fg = cv2.threshold(dist_transform,0.2*dist_transform.max(),255,0)
 # Finding unknown region
 sure_fg = np.uint8(sure_fg)
 unknown = cv2.subtract(sure_bg,sure_fg)
@@ -51,8 +58,8 @@ labels[unknown==255] = 0
 labels = cv2.watershed(imgRaw, labels)
 imgRaw[labels == -1] = [255,0,0]
 
-plt.subplot(3,3,8),plt.imshow(labels)
-plt.subplot(3,3,9),plt.imshow(imgRaw)
+plt.subplot(3,3,3),plt.imshow(labels)
+plt.subplot(3,3,6),plt.imshow(imgRaw)
 
 
 print("Number of markers: ", num_labels)
@@ -62,7 +69,7 @@ if not os.path.exists(newpath):
     os.makedirs(newpath)
 
 for i in range(1, num_labels):
-    if False: #i < 50:    
+    if True: #i < 50:    
         newLabel = labels.copy()
         newLabel[newLabel != i] = 0
         newLabel[newLabel == i] = 255
@@ -72,9 +79,11 @@ for i in range(1, num_labels):
     
         for cont in contours:
             x,y,w,h = cv2.boundingRect(cont)
-            cv2.imwrite(newpath + '/' + str(i) +'.png', imgRawOrig[y:y+h,x:x+w])
-
-        plt.subplot(3,3,7), plt.imshow(newLabel, 'gray')
+            okayCheck = isThisOkay(imgRawOrig[y:y+h,x:x+w])
+            if not okayCheck:
+                labels[labels == i] = 0
+                
+#            cv2.imwrite(newpath + '/' + str(i) +'.png', imgRawOrig[y:y+h,x:x+w])
 
 
 numNotBG = np.count_nonzero(bw.flatten())
@@ -85,5 +94,31 @@ numOK = np.count_nonzero(labelCp.flatten())
 print("Good stuff: ", numOK)
 percOk = (numOK/numNotBG)*100.0
 print("OK: ", percOk)
-plt.show()
 
+
+fred = np.fft.fft2(img_r)
+fshiftred = np.fft.fftshift(fred)
+magnitude_spectrum_red = 20*np.log(np.abs(fshiftred))
+plt.subplot(3,3,7),plt.imshow(magnitude_spectrum_red, 'gray')
+
+
+# Overlay image
+total = bw
+good = labels.copy()
+
+alpha = 0.5
+overlay = imgRawOrig.copy()
+output = imgRawOrig.copy()
+
+output[total > 0] = (255, 0, 0)
+output[labels > 1] = (0, 255, 0)
+
+cv2.addWeighted(overlay, alpha, output, 1 - alpha, 	0, output)
+
+
+plt.subplot(3,3,8),plt.imshow(output)
+
+
+plt.show()
+cv2.namedWindow("window", cv2.WINDOW_FREERATIO)
+cv2.imshow('window', output)
