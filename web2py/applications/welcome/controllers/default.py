@@ -61,7 +61,7 @@ def call():
 
 def getGrainImage():
     # Call REST API on Raspberry Pi to capture image
-    with urllib.request.urlopen("http://172.31.1.17:5000/captureImage") as url:
+    with urllib.request.urlopen("http://172.31.1.55:5000/captureImage") as url:
         data = url.read()
     # Creating copy on server
     imagefile = open('applications/welcome/static/images/GrainImage.jpg','wb')
@@ -74,9 +74,13 @@ def grainimage():
 
 def contaminationreport():
     # call service to start contamination detection
+    from  getreport import testMyImage
+    percOk = testMyImage('applications/welcome/static/images/GrainImage.jpg')
+    
+
     # generate pie chart and save it
     labels = 'Good Grains', 'Contamination'
-    sizes = [85, 15]
+    sizes = [percOk, 100-percOk]
     explode = (0, 0.1)
     fig1, ax1 = plt.subplots()
     ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
