@@ -69,9 +69,18 @@ def getGrainImage():
     imagefile.close()
     return redirect(URL('grainimage'))
 
-def getGrainImageIPhone():
+def getGrainImageIPhoneContaminated1():
     # Call REST API on Raspberry Pi to capture image
-    data = open('applications/welcome/static/images/GrainImage.jpg','rb').read()
+    data = open('applications/welcome/static/images/contaminated1.jpg','rb').read()
+    # Creating copy on server
+    imagefile = open('applications/welcome/static/images/GrainImage.jpg','wb')
+    imagefile.write(data)
+    imagefile.close()
+    return redirect(URL('grainimage'))
+
+def getGrainImageIPhoneOkay1():
+    # Call REST API on Raspberry Pi to capture image
+    data = open('applications/welcome/static/images/okay1.jpg','rb').read()
     # Creating copy on server
     imagefile = open('applications/welcome/static/images/GrainImage.jpg','wb')
     imagefile.write(data)

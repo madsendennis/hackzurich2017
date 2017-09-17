@@ -2,9 +2,12 @@
 
 <div style="text-align: center;">
 <form action="getGrainImage">
-  <button type="submit" class="btn btn-primary">Get image of grains for analysis</button>
+  <button type="submit" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px;">Get image of grains for analysis</button>
 </form>
-<form action="getGrainImageIPhone">
-  <button type="submit" class="btn btn-primary">Get image of grains for analysis (from iPhone!)</button>
+<form action="getGrainImageIPhoneContaminated1">
+  <button type="submit" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px;">Get image of grains for analysis (from iPhone!)</button>
+</form>
+<form action="getGrainImageIPhoneOkay1">
+  <button type="submit" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px;">Get image of grains for analysis (from iPhone!)</button>
 </form>
 </div>
