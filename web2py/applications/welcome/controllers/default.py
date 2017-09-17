@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # this file is released under public domain and you can use without limitations
 import urllib.request
+import matplotlib.pyplot as plt
 
 # -------------------------------------------------------------------------
 # This is a sample controller
@@ -73,6 +74,14 @@ def grainimage():
 
 def contaminationreport():
     # call service to start contamination detection
+    # generate pie chart and save it
+    labels = 'Good Grains', 'Contamination'
+    sizes = [85, 15]
+    explode = (0, 0.1)
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    plt.savefig('applications/welcome/static/images/PieChart.png')
     return dict(message=T('Contamination details in the food grains are as below:'))
 
 def viewanalysisimages():
